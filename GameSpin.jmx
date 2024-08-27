@@ -25,21 +25,35 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="QAT環境變數" enabled="false">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV 資料設定" enabled="false">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">/Users/hs057/apache-jmeter-5.6.2/Script/csv/DeviceID.csv</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">DeviceID</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="QAT環境變數" enabled="true">
           <collectionProp name="UserParameters.names">
             <stringProp name="2132032025">Front_URL</stringProp>
             <stringProp name="-1818222910">SiteID</stringProp>
+            <stringProp name="-2109073897">Back_URL</stringProp>
           </collectionProp>
           <collectionProp name="UserParameters.thread_values">
-            <collectionProp name="1062346164">
+            <collectionProp name="1245214422">
               <stringProp name="701017889">qphoenix.1161023.lol</stringProp>
               <stringProp name="111716">qat</stringProp>
+              <stringProp name="-705518951">qvirgo.1161023.lol</stringProp>
             </collectionProp>
           </collectionProp>
           <boolProp name="UserParameters.per_iteration">false</boolProp>
         </UserParameters>
         <hashTree/>
-        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="STR環境變數" enabled="true">
+        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="STR環境變數" enabled="false">
           <collectionProp name="UserParameters.names">
             <stringProp name="2132032025">Front_URL</stringProp>
             <stringProp name="-1818222910">SiteID</stringProp>
@@ -58,8 +72,8 @@
             <stringProp name="1173835281">DeviceID</stringProp>
           </collectionProp>
           <collectionProp name="UserParameters.thread_values">
-            <collectionProp name="629069316">
-              <stringProp name="-908444793">0ac1be83-6875-4041-bd0f-72b93740131f</stringProp>
+            <collectionProp name="-681734673">
+              <stringProp name="-871281185">240605test</stringProp>
             </collectionProp>
           </collectionProp>
           <boolProp name="UserParameters.per_iteration">false</boolProp>
@@ -105,25 +119,232 @@
             <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
           </JSONPostProcessor>
           <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="PlayerID" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">PlayerID</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.Result.Player.PlayerID</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
         </hashTree>
-        <eu.luminis.jmeter.wssampler.OpenWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.OpenWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.OpenWebSocketSampler" testname="ws/game 連線" enabled="true">
-          <boolProp name="TLS">true</boolProp>
-          <stringProp name="server">${Front_URL}</stringProp>
-          <stringProp name="port">443</stringProp>
-          <stringProp name="path">ws/game</stringProp>
-          <stringProp name="connectTimeout">20000</stringProp>
-          <stringProp name="readTimeout">6000</stringProp>
-        </eu.luminis.jmeter.wssampler.OpenWebSocketSampler>
-        <hashTree/>
-        <eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler" testname="10000 初始化連線" enabled="true">
-          <boolProp name="createNewConnection">false</boolProp>
-          <boolProp name="TLS">false</boolProp>
-          <stringProp name="server"></stringProp>
-          <stringProp name="port">80</stringProp>
-          <stringProp name="path"></stringProp>
-          <stringProp name="connectTimeout">20000</stringProp>
-          <boolProp name="binaryPayload">false</boolProp>
-          <stringProp name="requestData">{
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="後台設定" enabled="true">
+          <stringProp name="LoopController.loops">1</stringProp>
+        </LoopController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="後台使用者登入" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+   &quot;SiteID&quot;: &quot;qat&quot;,&#xd;
+   &quot;Account&quot;: &quot;york0001&quot;,&#xd;
+   &quot;Password&quot;: &quot;1a5645e54d6aabed665494308a728014&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${Back_URL}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/api/v1/login</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="BackLoginToken" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">BackLoginToken</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.Result.APIToken</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="更改玩家狀態" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;PlayerID&quot;:&quot;${PlayerID}&quot;,&#xd;
+	&quot;Status&quot;: 1,&#xd;
+	&quot;Identity&quot;: 2&#xd;
+}&#xd;
+// Identity:1=正式,2=測試</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${Back_URL}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/api/v1/player/edit</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Header" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.value">${BackLoginToken}</stringProp>
+                  <stringProp name="Header.name">api-token</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.value">true</stringProp>
+                  <stringProp name="Header.name">close-rsa</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="更改玩家VIP" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;playerID&quot;: &quot;${PlayerID}&quot;,&#xd;
+	&quot;setLevel&quot;: 3,&#xd;
+	&quot;VIPRetain&quot;: {&#xd;
+		  &quot;checked&quot;: false,&#xd;
+		  &quot;time&quot;: &quot;&quot;&#xd;
+		},&#xd;
+	&quot;skipRelegation&quot;: false,&#xd;
+	&quot;SiteID&quot;: &quot;qat&quot;&#xd;
+}&#xd;
+// setLevel:1~8分別是銅～黑曜石</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${Back_URL}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/api/v1/player/set/vip</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Header" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.value">${BackLoginToken}</stringProp>
+                  <stringProp name="Header.name">api-token</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.value">true</stringProp>
+                  <stringProp name="Header.name">close-rsa</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="調整玩家錢包" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;playerID&quot;: &quot;${PlayerID}&quot;,&#xd;
+	&quot;reason&quot;: 1,&#xd;
+	&quot;changes&quot;: [&#xd;
+		{&#xd;
+		&quot;itemID&quot;: 1,&#xd;
+		&quot;amount&quot;: &quot;500000&quot;,&#xd;
+		&quot;remark&quot;: &quot;10&quot;&#xd;
+		}&#xd;
+	],&#xd;
+	&quot;SiteID&quot;: &quot;qat&quot;&#xd;
+}&#xd;
+// amount:輸入金幣量</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${Back_URL}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/api/v1/bag/items/modify</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Header" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.value">${BackLoginToken}</stringProp>
+                  <stringProp name="Header.name">api-token</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.value">true</stringProp>
+                  <stringProp name="Header.name">close-rsa</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="前台WS連線" enabled="false">
+          <stringProp name="LoopController.loops">1</stringProp>
+        </LoopController>
+        <hashTree>
+          <eu.luminis.jmeter.wssampler.OpenWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.OpenWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.OpenWebSocketSampler" testname="ws/game 連線" enabled="true">
+            <boolProp name="TLS">true</boolProp>
+            <stringProp name="server">${Front_URL}</stringProp>
+            <stringProp name="port">443</stringProp>
+            <stringProp name="path">ws/game</stringProp>
+            <stringProp name="connectTimeout">20000</stringProp>
+            <stringProp name="readTimeout">6000</stringProp>
+          </eu.luminis.jmeter.wssampler.OpenWebSocketSampler>
+          <hashTree/>
+          <eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler" testname="10000 初始化連線" enabled="true">
+            <boolProp name="createNewConnection">false</boolProp>
+            <boolProp name="TLS">false</boolProp>
+            <stringProp name="server"></stringProp>
+            <stringProp name="port">80</stringProp>
+            <stringProp name="path"></stringProp>
+            <stringProp name="connectTimeout">20000</stringProp>
+            <boolProp name="binaryPayload">false</boolProp>
+            <stringProp name="requestData">{
     &quot;OP&quot;: 10000,
     &quot;Token&quot;: &quot;${LoginToken}&quot;,
     &quot;DeviceID&quot;: &quot;${DeviceID}&quot;,
@@ -131,45 +352,13 @@
     &quot;CloseRSA&quot;: true
 }
 </stringProp>
-          <stringProp name="readTimeout">6000</stringProp>
-          <boolProp name="loadDataFromFile">false</boolProp>
-          <stringProp name="dataFile"></stringProp>
-        </eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler>
-        <hashTree/>
-        <eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler" testname="20010 Start 開始遊戲" enabled="true">
-          <boolProp name="createNewConnection">false</boolProp>
-          <boolProp name="TLS">false</boolProp>
-          <stringProp name="server"></stringProp>
-          <stringProp name="port">80</stringProp>
-          <stringProp name="path"></stringProp>
-          <stringProp name="connectTimeout">20000</stringProp>
-          <boolProp name="binaryPayload">false</boolProp>
-          <stringProp name="requestData">{
-    &quot;OP&quot;:20010, 
-    &quot;GameCode&quot;:&quot;10012&quot;
-}</stringProp>
-          <stringProp name="readTimeout">6000</stringProp>
-          <boolProp name="loadDataFromFile">false</boolProp>
-          <stringProp name="dataFile"></stringProp>
-        </eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler>
-        <hashTree/>
-        <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="GetData" enabled="true">
-          <boolProp name="TLS">false</boolProp>
-          <stringProp name="server"></stringProp>
-          <stringProp name="port">80</stringProp>
-          <stringProp name="path"></stringProp>
-          <stringProp name="connectTimeout">20000</stringProp>
-          <stringProp name="dataType">Text</stringProp>
-          <boolProp name="createNewConnection">false</boolProp>
-          <stringProp name="readTimeout">50</stringProp>
-          <boolProp name="optional">false</boolProp>
-        </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
-        <hashTree/>
-        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="SpinLoop" enabled="true">
-          <stringProp name="LoopController.loops">10</stringProp>
-        </LoopController>
-        <hashTree>
-          <eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleWriteWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler" testname="20020 Spin 投注" enabled="true">
+            <stringProp name="readTimeout">6000</stringProp>
+            <boolProp name="loadDataFromFile">false</boolProp>
+            <stringProp name="dataFile"></stringProp>
+          </eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler>
+          <hashTree/>
+          <eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler" testname="20010 Start 開始遊戲" enabled="true">
+            <boolProp name="createNewConnection">false</boolProp>
             <boolProp name="TLS">false</boolProp>
             <stringProp name="server"></stringProp>
             <stringProp name="port">80</stringProp>
@@ -177,66 +366,105 @@
             <stringProp name="connectTimeout">20000</stringProp>
             <boolProp name="binaryPayload">false</boolProp>
             <stringProp name="requestData">{
+    &quot;OP&quot;:20010, 
+    &quot;GameCode&quot;:&quot;10036&quot;
+}</stringProp>
+            <stringProp name="readTimeout">6000</stringProp>
+            <boolProp name="loadDataFromFile">false</boolProp>
+            <stringProp name="dataFile"></stringProp>
+          </eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler>
+          <hashTree/>
+          <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Spin次數設定" enabled="true">
+            <stringProp name="LoopController.loops">1</stringProp>
+          </LoopController>
+          <hashTree>
+            <eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler" testname="20030 選擇使用的腳本" enabled="true">
+              <boolProp name="createNewConnection">false</boolProp>
+              <boolProp name="TLS">false</boolProp>
+              <stringProp name="server"></stringProp>
+              <stringProp name="port">80</stringProp>
+              <stringProp name="path"></stringProp>
+              <stringProp name="connectTimeout">20000</stringProp>
+              <boolProp name="binaryPayload">false</boolProp>
+              <stringProp name="requestData">{
+    &quot;OP&quot;: 20030,
+    &quot;Script&quot;: &quot;script-QATest.json&quot;
+}</stringProp>
+              <stringProp name="readTimeout">1000</stringProp>
+              <boolProp name="loadDataFromFile">false</boolProp>
+              <stringProp name="dataFile"></stringProp>
+            </eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler>
+            <hashTree/>
+            <eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleWriteWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler" testname="20020 Spin 投注" enabled="true">
+              <boolProp name="TLS">false</boolProp>
+              <stringProp name="server"></stringProp>
+              <stringProp name="port">80</stringProp>
+              <stringProp name="path"></stringProp>
+              <stringProp name="connectTimeout">20000</stringProp>
+              <boolProp name="binaryPayload">false</boolProp>
+              <stringProp name="requestData">{
   &quot;OP&quot;:20020, 
   &quot;PerPage&quot;: 1,
-  &quot;Multiplier&quot;: &quot;0.02&quot;
+  &quot;Multiplier&quot;: &quot;1&quot;
 }</stringProp>
-            <boolProp name="createNewConnection">false</boolProp>
-            <boolProp name="loadDataFromFile">false</boolProp>
-            <stringProp name="dataFile"></stringProp>
-          </eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler>
-          <hashTree/>
-          <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="GetData" enabled="true">
-            <boolProp name="TLS">false</boolProp>
-            <stringProp name="server"></stringProp>
-            <stringProp name="port">80</stringProp>
-            <stringProp name="path"></stringProp>
-            <stringProp name="connectTimeout">20000</stringProp>
-            <stringProp name="dataType">Text</stringProp>
-            <boolProp name="createNewConnection">false</boolProp>
-            <stringProp name="readTimeout">50</stringProp>
-            <boolProp name="optional">false</boolProp>
-          </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
-          <hashTree/>
-          <eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleWriteWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler" testname="20040 Settle 遊戲結算" enabled="true">
-            <boolProp name="TLS">false</boolProp>
-            <stringProp name="server"></stringProp>
-            <stringProp name="port">80</stringProp>
-            <stringProp name="path"></stringProp>
-            <stringProp name="connectTimeout">20000</stringProp>
-            <boolProp name="binaryPayload">false</boolProp>
-            <stringProp name="requestData">{
+              <boolProp name="createNewConnection">false</boolProp>
+              <boolProp name="loadDataFromFile">false</boolProp>
+              <stringProp name="dataFile"></stringProp>
+            </eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler>
+            <hashTree/>
+            <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="GetData-10101" enabled="true">
+              <boolProp name="TLS">false</boolProp>
+              <stringProp name="server"></stringProp>
+              <stringProp name="port">80</stringProp>
+              <stringProp name="path"></stringProp>
+              <stringProp name="connectTimeout">20000</stringProp>
+              <stringProp name="dataType">Text</stringProp>
+              <boolProp name="createNewConnection">false</boolProp>
+              <stringProp name="readTimeout">1000</stringProp>
+              <boolProp name="optional">false</boolProp>
+            </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
+            <hashTree/>
+            <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="GetData-20021" enabled="true">
+              <boolProp name="TLS">false</boolProp>
+              <stringProp name="server"></stringProp>
+              <stringProp name="port">80</stringProp>
+              <stringProp name="path"></stringProp>
+              <stringProp name="connectTimeout">20000</stringProp>
+              <stringProp name="dataType">Text</stringProp>
+              <boolProp name="createNewConnection">false</boolProp>
+              <stringProp name="readTimeout">1000</stringProp>
+              <boolProp name="optional">false</boolProp>
+            </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
+            <hashTree/>
+            <eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler" testname="20040 Settle 遊戲結算" enabled="true">
+              <boolProp name="createNewConnection">false</boolProp>
+              <boolProp name="TLS">false</boolProp>
+              <stringProp name="server"></stringProp>
+              <stringProp name="port">80</stringProp>
+              <stringProp name="path"></stringProp>
+              <stringProp name="connectTimeout">20000</stringProp>
+              <boolProp name="binaryPayload">false</boolProp>
+              <stringProp name="requestData">{
     &quot;OP&quot;: 20040
 }</stringProp>
-            <boolProp name="createNewConnection">false</boolProp>
-            <boolProp name="loadDataFromFile">false</boolProp>
-            <stringProp name="dataFile"></stringProp>
-          </eu.luminis.jmeter.wssampler.SingleWriteWebSocketSampler>
-          <hashTree/>
-          <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="GetData" enabled="true">
-            <boolProp name="TLS">false</boolProp>
-            <stringProp name="server"></stringProp>
-            <stringProp name="port">80</stringProp>
-            <stringProp name="path"></stringProp>
-            <stringProp name="connectTimeout">20000</stringProp>
-            <stringProp name="dataType">Text</stringProp>
-            <boolProp name="createNewConnection">false</boolProp>
-            <stringProp name="readTimeout">50</stringProp>
-            <boolProp name="optional">false</boolProp>
-          </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
-          <hashTree/>
-          <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="GetData" enabled="true">
-            <boolProp name="TLS">false</boolProp>
-            <stringProp name="server"></stringProp>
-            <stringProp name="port">80</stringProp>
-            <stringProp name="path"></stringProp>
-            <stringProp name="connectTimeout">20000</stringProp>
-            <stringProp name="dataType">Text</stringProp>
-            <boolProp name="createNewConnection">false</boolProp>
-            <stringProp name="readTimeout">50</stringProp>
-            <boolProp name="optional">false</boolProp>
-          </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
-          <hashTree/>
+              <stringProp name="readTimeout">1000</stringProp>
+              <boolProp name="loadDataFromFile">false</boolProp>
+              <stringProp name="dataFile"></stringProp>
+            </eu.luminis.jmeter.wssampler.RequestResponseWebSocketSampler>
+            <hashTree/>
+            <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="GetData-any" enabled="true">
+              <boolProp name="TLS">false</boolProp>
+              <stringProp name="server"></stringProp>
+              <stringProp name="port">80</stringProp>
+              <stringProp name="path"></stringProp>
+              <stringProp name="connectTimeout">20000</stringProp>
+              <stringProp name="dataType">Text</stringProp>
+              <boolProp name="createNewConnection">false</boolProp>
+              <stringProp name="readTimeout">1000</stringProp>
+              <boolProp name="optional">false</boolProp>
+            </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="檢視結果樹" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -311,18 +539,6 @@
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
-        <hashTree/>
-        <eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler guiclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSamplerGui" testclass="eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler" testname="WebSocket Single Read Sampler" enabled="false">
-          <boolProp name="TLS">false</boolProp>
-          <stringProp name="server"></stringProp>
-          <stringProp name="port">80</stringProp>
-          <stringProp name="path"></stringProp>
-          <stringProp name="connectTimeout">20000</stringProp>
-          <stringProp name="dataType">Text</stringProp>
-          <boolProp name="createNewConnection">false</boolProp>
-          <stringProp name="readTimeout">6000</stringProp>
-          <boolProp name="optional">false</boolProp>
-        </eu.luminis.jmeter.wssampler.SingleReadWebSocketSampler>
         <hashTree/>
       </hashTree>
     </hashTree>
